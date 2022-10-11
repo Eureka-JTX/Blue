@@ -30,7 +30,7 @@ def query(L, R, tleft, tright, root):
     mid = (tleft + tright) // 2
     ans = 0
     if L <= mid:
-        ans = max(ans, queryery(L, R, tleft, mid, 2 * root))
+        ans = max(ans, query(L, R, tleft, mid, 2 * root))
     if R > mid:
         ans = max(ans, query(L, R, mid + 1, tright, 2 * root + 1))
     return ans
@@ -63,16 +63,16 @@ for i in range(n - 1, -1, -1):
     ans = max(ans, dpr[i])
 
     # 这里维护的同时要随时与 k 个数前的 dpl[be] 取 max
-    be = i - k - 1;
+    be = i - k - 1
     if be >= 0:
-        tt = rank_map[nums[be]];
-        ans = max(ans, dpl[be] + k + query(tt, m, 1, m, 1));
+        tt = rank_map[nums[be]]
+        ans = max(ans, dpl[be] + k + query(tt, m, 1, m, 1))
     # 在比 nums[be] 大的区间中找 max 值，这样才能保证没有遗漏，因为中间可能不止空出 k 个数
 
 # 最后考虑一段最长不下降子序列+k个数的情况
 for i in range(n - k):
-    ans = max(ans, dpl[i] + k);
+    ans = max(ans, dpl[i] + k)
 for i in range(n - 1, k - 1, -1):
-    ans = max(ans, dpr[i] + k);
+    ans = max(ans, dpr[i] + k)
 
 print(ans)
